@@ -49,8 +49,8 @@ compose.click()
 # compose the mail
 to      = sess.at_xpath('//*[@name="to"]', timeout=10)
 subject = sess.at_xpath('//*[@name="subjectbox"]')
-body    = sess.at_xpath('//*[@class="Am Al editable LW-avf"]')
-#class="Am Al editable LW-avf"
+body    = sess.at_xpath('//div[@role="textbox"]')
+
 
 
 
