@@ -26,28 +26,59 @@ class client:
         sess=dryscrape.Session(base_url = 'http://www.amazon.com')
         print "Visiting in..."
         sess.visit('/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords='+arg)
+        for i in range(0,10):
+            self.search_amazon(i,sess)
 
-        #sess.render('test.png')
-        #article=sess.xpath('//[@class=a]')
-        #for link in article:
-         #  print link['class']
-        nodes=sess.xpath('//li[@id="result_0"]')
+
+    def search_amazon(self,i,sess):
+        name='//li[@id="result_'+str(i)+'\"]'
+        nodes=sess.xpath(name)
         for node in nodes:
-            link=node.xpath('div/div/div/div/a[@href]')
-            price=node.xpath('//span[@class="a-size-base a-color-price s-price a-text-bold"]')
-            ship=node.xpath('//span[@class="a-size-small a-color-secondary"]')
-            vote=node.xpath('//a[@class="a-size-small a-link-normal a-text-normal"]')
-            descrip=node.xpath('//span[@class="a-size-small a-color-price"]')
-            for a in link:
-                print a['href']
-            for b in price:
-                print b.text()
-            for c in ship:
-                print c.text()
-            for d in vote:
-                print d.text()
-            for e in descrip:
-                print e.text()
+            node2=node.xpath('div/div[2][@class="a-row a-spacing-mini"]')
+            node3=node.xpath('div/div[3][@class="a-row a-spacing-mini"]')
+            node4=node.xpath('div/div[4][@class="a-row a-spacing-top-mini a-spacing-mini"]')
+            node5=node.xpath('div/div[5][@class="a-row a-spacing-none"]')
+            for a in node2:
+                link=a.xpath('div/a[@href]')
+                for b in link:
+                    ref=b['href']
+                    name=b['title']
+                    print ref
+                    print name
+            for a in node3:
+                price=a.xpath('div/a/span[@class="a-size-base a-color-price s-price a-text-bold"]')
+                descrip=a.xpath('div[2]/div/span[@class="a-size-small a-color-price"]')
+                other_price=a.xpath('div[4]/a/span[@class="a-size-base a-color-price a-text-bold"]')
+                for b in price:
+                    print b.text()
+                for c in descrip:
+                    print c.text()
+                for d in other_price:
+                    print d.text()
+            for a in node4:
+                shipping=a.xpath('div/span[@class="a-size-small a-color-secondary"]')
+                for b in shipping:
+                    print b.text()
+            for a in node5:
+                print a.text()
+
+
+            #link=node.xpath('div/div/div/div/a[@href]')
+            #name=node.xpath('div/div/div/div/')
+            #price=node.xpath('//span[@class="a-size-base a-color-price s-price a-text-bold"]')
+            #ship=node.xpath('//span[@class="a-size-small a-color-secondary"]')
+            #vote=node.xpath('//a[@class="a-size-small a-link-normal a-text-normal"]')
+            #descrip=node.xpath('//span[@class="a-size-small a-color-price"]')
+            #for a in link:
+            #    print a['href']
+            #for b in price:
+            #    print b.text()
+            #for c in ship:
+            #    print c.text()
+            #for d in vote:
+            #    print d.text()
+            #for e in descrip:
+             #   print e.text()
         #print nodes1[0].text()
         #name=[]
         #print arg
