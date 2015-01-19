@@ -2,9 +2,13 @@ __author__ = 'heocon'
 import argparse
 import sys
 import dryscrape
+from collections import namedtuple
+namespace = namedtuple("Dir", ["name", "value"])
 class client:
+
     def __init__(self):
         self.data = []
+        self.file={}
         parser = argparse.ArgumentParser(description='Processing key words',usage='-h -a -s')
         parser.add_argument('-a', help='Search in amazon website')
         parser.add_argument('-s', help='Search in google scholar')
@@ -17,24 +21,17 @@ class client:
         content= sess.xpath('//*[@class="gs_rs"]')
         author=sess.xpath('//*[@class="gs_a"]')
         title=sess.xpath('//*[@class="gs_rt"]')
-        self.file=[]
-#print len(content)
         for i in range(0,len(content)-1):
-            self.file.append(title[i].text() + '||' + author[i].text() + '||' + content[i].text())
-            print self.file[i]
-        return self.file
+            a=self.namespace={"title":title[i].text(),"author":author[i].text(),"content":content[i].text()}
+            self.file[i]=a
 
     def amazon(self,arg):
         sess=dryscrape.Session(base_url = 'http://www.amazon.com')
         print "Visiting in..."
         sess.visit('/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords='+arg)
-        self.b={}
         for i in range(0,10):
             a=self.search_amazon(i,sess)
-            print a.star
-
-
-
+            self.file[i]=a
 
     def search_amazon(self,i,sess):
         name='//li[@id="result_'+str(i)+'\"]'
@@ -82,10 +79,11 @@ a=client()
 if a.args.a:
     arg=a.args.a
     a.amazon(arg)
-
+    print a.file[0]['star']
 else:
     arg=a.args.s
     a.google(arg)
+    print a.file[0]['author']
 
 
 
