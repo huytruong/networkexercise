@@ -9,9 +9,9 @@ class client:
     def __init__(self):
         self.data = []
         self.file={}
-        parser = argparse.ArgumentParser(description='Processing key words',usage='-h -a -s')
+        parser = argparse.ArgumentParser(description='Processing key words',usage='-h -a -g')
         parser.add_argument('-a', help='Search in amazon website')
-        parser.add_argument('-s', help='Search in google scholar')
+        parser.add_argument('-g', help='Search in google scholar')
         self.args = parser.parse_args(sys.argv[1:3])
 
     def google(self,arg):
@@ -29,6 +29,7 @@ class client:
         sess=dryscrape.Session(base_url = 'http://www.amazon.com')
         print "Visiting in..."
         sess.visit('/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords='+arg)
+        # save in the dictionary form
         for i in range(0,10):
             a=self.search_amazon(i,sess)
             self.file[i]=a
@@ -71,19 +72,38 @@ class client:
                     shipping=b.text()
             for a in node5:
                 star= a.text()
+        # save in dictionary form
         self.namespace={'ref':ref,'name':name,'price_new':price,'price_used':otherprice,'description':descrip,'shipping':shipping,'star':star}
         return self.namespace
-    #def save_file(self):
+    def save_file(self,filename):
+        with open(filename,'w') as f:
+            row = self.file
+            #print len(rows)
+            f.write('<?xml version="1.0" ?>\n')
+            f.write('<mydata>\n')
+            for i in range(0,len(row)-1):
+                f.write('  <row>\n')
+                for key in row[i].keys():
+                    a='    <'+str(key)+'>'+str(row[i][key])+'</'+str(key)+'>\n'
+                    f.write(a)
+                f.write('  </row>\n')
+            f.write('</mydata>\n')
+
 
 a=client()
+filename='data.xml'
+filename1='data1.xml'
 if a.args.a:
     arg=a.args.a
     a.amazon(arg)
-    print a.file[0]['star']
+    a.save_file(filename)
 else:
-    arg=a.args.s
+    arg=a.args.g
     a.google(arg)
-    print a.file[0]['author']
+    a.save_file(filename1)
+
+
+
 
 
 
