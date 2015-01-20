@@ -1,14 +1,11 @@
 import socket
 import sys
-import re
-from xml.dom.minidom import parse, parseString
 import BeautifulSoup
-from Article import  Article
+from task_1.Article import  Article
 
-def reachTarget():
-    target = "scholar.google.com"
-    #target = 'www.google.fr'
-    port = 80
+
+def reachTarget(target = "scholar.google.com",port = 80):
+
     try:
         #create an AF_INET, STREAM socket (TCP)
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -63,12 +60,10 @@ def getContent(sublink):
 
         content= content+str(reply)
         if "</html>" in reply:
+            s.close()
             break
+    print content
     return doParser(content)
-
-
-
-
 
 
 def doParser(content):
@@ -106,8 +101,14 @@ def doParser(content):
 
     return result
 
+a1 = Article("111","111","111","111")
+a2 = Article("222","222","222","222")
+a3 = Article("333","333","333","333")
+a4 = Article("4444","4444","4444","4444")
+def getContent1(LINKS):
+    return [a1,a2,a3,a4]
 
 
 #content = getContent("/scholar?q=stuxnet")
-content = getContent("/scholar?start=10&q=stuxnet")
+#content = getContent("/scholar?start=10&q=stuxnet")
 

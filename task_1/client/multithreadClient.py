@@ -3,21 +3,21 @@ __author__ = 'hrua'
 import time,threading
 import client
 LINKS =[
-    "/scholar?q=stuxnet",
-    "/scholar?start=10&q=stuxnet",
-    "/scholar?start=20&q=stuxnet"
+    "/scholar?q=bigdata",
+    "/scholar?start=10&q=bigdata",
+    "/scholar?start=20&q=bigdata"
 ]
 result_lock = threading.Lock()
 result =[]
 
-class MultiScrapy(threading.Thread):
+class ThreadScrapy(threading.Thread):
     def __init__(self,link):
         threading.Thread.__init__(self)
         self.link = link
 
     def run(self, ):
         global result
-        r = client.getContent(self.link)
+        r = client.getContent1(self.link)
 
         print "Start process" + self.getName()
 
@@ -29,13 +29,21 @@ class MultiScrapy(threading.Thread):
 
         print "Complete process" + self.getName();
 
-running=[]
 
-for i in LINKS:
-    m=MultiScrapy(i)
-    m.start()
-    running.append(m)
+def collectThreads(LINKS):
+    running=[]
 
-[ m.join() for m in running]
+    for i in LINKS:
+        m=ThreadScrapy(i)
+        m.start()
+        running.append(m)
 
-print len(result)
+    [ m.join() for m in running]
+
+
+def collectData():
+    collectThreads(LINKS)
+    return result
+
+
+print collectData()
