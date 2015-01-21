@@ -2,37 +2,42 @@ __author__ = 'heocon'
 import argparse
 import sys
 import dryscrape
-from collections import namedtuple
-namespace = namedtuple("Dir", ["name", "value"])
-class client:
+#from multiprocessing import Process
+from threading import Thread
+class client():
 
     def __init__(self):
         self.data = []
-        self.file={}
+        #self.file={}
+        self.file1={}
+        self.file2={}
+        self.threads = []
         parser = argparse.ArgumentParser(description='Processing key words',usage='-h -a -g')
         parser.add_argument('-a', help='Search in amazon website')
         parser.add_argument('-g', help='Search in google scholar')
         self.args = parser.parse_args(sys.argv[1:3])
-
+    #def google(self,arg,filename):
     def google(self,arg):
         sess = dryscrape.Session(base_url = 'http://scholar.google.fr')
-        print "Visiting in..."
+        print "Visiting in...google"
         sess.visit('/scholar?hl=en&q='+arg)
         content= sess.xpath('//*[@class="gs_rs"]')
         author=sess.xpath('//*[@class="gs_a"]')
         title=sess.xpath('//*[@class="gs_rt"]')
         for i in range(0,len(content)-1):
             a=self.namespace={"title":title[i].text(),"author":author[i].text(),"content":content[i].text()}
-            self.file[i]=a
-
+            self.file1[i]=a
+        #self.save_file(filename)
+    #def amazon(self,arg,filename):
     def amazon(self,arg):
         sess=dryscrape.Session(base_url = 'http://www.amazon.com')
-        print "Visiting in..."
+        print "Visiting in...amazon"
         sess.visit('/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords='+arg)
         # save in the dictionary form
         for i in range(0,10):
             a=self.search_amazon(i,sess)
-            self.file[i]=a
+            self.file2[i]=a
+        #self.save_file(filename)
 
     def search_amazon(self,i,sess):
         name='//li[@id="result_'+str(i)+'\"]'
@@ -75,9 +80,11 @@ class client:
         # save in dictionary form
         self.namespace={'ref':ref,'name':name,'price_new':price,'price_used':otherprice,'description':descrip,'shipping':shipping,'star':star}
         return self.namespace
-    def save_file(self,filename):
-        with open(filename,'w') as f:
-            row = self.file
+    #def save_file(self,filename):
+    def save_file(self,filename,file):
+        with open(filename,'a') as f:
+            #row=self.file
+            row = file
             #print len(rows)
             f.write('<?xml version="1.0" ?>\n')
             f.write('<mydata>\n')
@@ -88,21 +95,34 @@ class client:
                     f.write(a)
                 f.write('  </row>\n')
             f.write('</mydata>\n')
+    def go(self):
+        filename='data.xml'
+        arg1='MacBook'
+        arg2='stuxnet'
+        a.google(arg2)
+        a.amazon(arg1)
+        t1 = Thread(target=self.save_file,args=(filename,self.file1))
+        t2 = Thread(target=self.save_file,args=(filename,self.file2))
+        # Make threads daemonic, i.e. terminate them when main thread
+        # terminates. From: http://stackoverflow.com/a/3788243/145400
+        t1.daemon = True
+        t2.daemon = True
+        t1.start()
+        t2.start()
+        self.threads.append(t1)
+        self.threads.append(t2)
+        [t.join() for t in self.threads]
 
-
+def join_threads(threads):
+    """
+    Join threads in interruptable fashion.
+    From http://stackoverflow.com/a/9790882/145400
+    """
+    for t in threads:
+        #while t.isAlive():
+        t.join()
 a=client()
-filename='data.xml'
-filename1='data1.xml'
-if a.args.a:
-    arg=a.args.a
-    a.amazon(arg)
-    a.save_file(filename)
-else:
-    arg=a.args.g
-    a.google(arg)
-    a.save_file(filename1)
-
-
+a.go()
 
 
 
