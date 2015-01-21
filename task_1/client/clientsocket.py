@@ -1,21 +1,23 @@
 import socket
 import sys
 import re
-from xml.dom.minidom import parse, parseString
-import BeautifulSoup
-from Article import  Article
+from task_1.Article import  Article
 
-def reachTarget():
-    target = "scholar.google.com"
-    #target = 'www.google.fr'
-    port = 80
+
+def reachTarget(target = "www.livescore.com",port = 80):
+    '''
+
+    :param target: main link of site needed to crawler //remove http://
+    :param port: port of site . default: 80
+    :return: socket,hostname, ip
+    '''
     try:
         #create an AF_INET, STREAM socket (TCP)
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     except socket.error, msg:
         print 'Failed to create socket. Error code: ' + str(msg[0]) + ' , Error message : ' + msg[1]
         sys.exit()
-    print 'Socket Created'
+    #print 'Socket Created'
 
     try:
         remote_ip = socket.gethostbyname( target )
@@ -23,10 +25,10 @@ def reachTarget():
         #could not resolve
         print 'Hostname could not be resolved. Exiting'
         sys.exit()
-    print 'Ip address of ' + target + ' is ' + remote_ip
+    #print 'Ip address of ' + target + ' is ' + remote_ip
 
     #Connect to remote server
-    s.connect((remote_ip , port))
+    s.connect((target , port))
     return s, target,remote_ip
 
 
@@ -34,19 +36,19 @@ def reachTarget():
 
 def getContent(sublink):
     '''
-
-    :param sublink:
-    :return: content of page.
+    prepare the request and send to server.
+    :param sublink ; format /abc/xhz
+    :return: string -- content of page.
     '''
 
     s,target,remote_ip = reachTarget()
-    print 'Socket Connected to ' + target + ' on ip ' + remote_ip
+    #print 'Socket Connected to ' + target + ' on ip ' + remote_ip
 
     #Send some data to remote server
-    message = "GET " + sublink + " HTTP/1.1\r\n" \
-                                "Host :"+ target + "\r\n\r\n"
 
-
+    message="GET "+sublink+" HTTP/1.1\r\n" \
+            "Host: "+target+"\r\n\r\n"
+    print message
     try :
         #Set the whole string
         s.sendall(message)
@@ -55,27 +57,22 @@ def getContent(sublink):
         print 'Send failed'
         sys.exit()
     print 'Message send successfully'
-    content=''
+    data=''
     i=0
     while True:
         reply = s.recv(1024)
         #print reply
 
-        content= content+str(reply)
+        data= data+str(reply)
         if "</html>" in reply:
+            s.close()
             break
-    return doParser(content)
 
+    return doParser(data)
 
+'''
+def doParserGoogleScholar(content):
 
-
-
-
-def doParser(content):
-    '''
-    parser into object to
-    :return: list objects of result
-    '''
     result = []
     parsed_html = BeautifulSoup.BeautifulSoup(content)
 
@@ -105,9 +102,41 @@ def doParser(content):
         result.append(ar)
 
     return result
+'''
+
+def doParser(data):
+    '''
+    :param data:
+    :return:
+    '''
+    rawtable=''
+    row_objects=[]
+    t= re.search('<table class="league-wc table mtn">(.*)</table>', data)
+
+    if t:
+        rawtable =t.group(0)
+
+        #get rows
+        r  = re.findall("<tr[^>]+>(.*?)<\/tr>",rawtable)
+        #skip column title
+        for row in r[1:]:
+            #print row
+            col = re.findall("<td[^>]*>(.*?)<\/td>",row)
+
+            col[1] = re.sub('<div class="num">(.*)</div>', r"\1",col[1]).strip()
+            #remove the first useless column
+            col.pop(0)
+            row_objects.append(col)
+    return rawtable,row_objects
+
+a1 = Article("111","111","111","111")
+a2 = Article("222","222","222","222")
+a3 = Article("333","333","333","333")
+a4 = Article("4444","4444","4444","4444")
+def getContent1(LINKS):
+    return [a1,a2,a3,a4]
 
 
-
-#content = getContent("/scholar?q=stuxnet")
-content = getContent("/scholar?start=10&q=stuxnet")
+#content = getContent("/soccer/england/premier-league/")
+#content = getContent("/scholar?start=10&q=stuxnet")
 
