@@ -1,0 +1,93 @@
+01-22 17:43 root         INFO     Visiting in amazon
+01-22 17:43 root         INFO     Visiting in google scholar
+01-22 17:43 root         DEBUG    Scrapping content
+01-22 17:43 root         DEBUG    Scrapping author
+01-22 17:43 root         DEBUG    Scrapping title
+01-22 17:43 root         INFO     Star writing in example.log with google search
+01-22 17:43 root         INFO     Write in each row  0 of google search
+01-22 17:43 root         INFO     Write in each row  1 of google search
+01-22 17:43 root         INFO     Write in each row  2 of google search
+01-22 17:43 root         INFO     Write in each row  3 of google search
+01-22 17:43 root         INFO     Write in each row  4 of google search
+01-22 17:43 root         INFO     Write in each row  5 of google search
+01-22 17:43 root         INFO     Write in each row  6 of google search
+01-22 17:43 root         INFO     Writing in example.log with amazon search
+01-22 17:43 root         DEBUG    Scrapping item
+01-22 17:43 root         DEBUG    Scrapping title and link
+01-22 17:43 root         DEBUG    Scrapping price, description, and other_price
+01-22 17:43 root         DEBUG    Scrapping shipping content
+01-22 17:43 root         DEBUG    Scrapping star of item
+01-22 17:43 root         INFO     Write in each row  0 of amazon search
+01-22 17:43 root         DEBUG    Scrapping item
+01-22 17:43 root         DEBUG    Scrapping title and link
+01-22 17:43 root         DEBUG    Scrapping price, description, and other_price
+01-22 17:43 root         DEBUG    Scrapping shipping content
+01-22 17:43 root         DEBUG    Scrapping star of item
+01-22 17:43 root         INFO     Write in each row  1 of amazon search
+01-22 17:43 root         DEBUG    Scrapping item
+01-22 17:43 root         DEBUG    Scrapping title and link
+01-22 17:43 root         DEBUG    Scrapping price, description, and other_price
+01-22 17:43 root         DEBUG    Scrapping shipping content
+01-22 17:43 root         DEBUG    Scrapping star of item
+01-22 17:43 root         INFO     Write in each row  2 of amazon search
+01-22 17:43 root         DEBUG    Scrapping item
+01-22 17:43 root         DEBUG    Scrapping title and link
+01-22 17:43 root         DEBUG    Scrapping price, description, and other_price
+01-22 17:43 root         DEBUG    Scrapping star of item
+01-22 17:43 root         INFO     Write in each row  3 of amazon search
+01-22 17:43 root         DEBUG    Scrapping item
+01-22 17:43 root         DEBUG    Scrapping title and link
+01-22 17:43 root         DEBUG    Scrapping price, description, and other_price
+01-22 17:43 root         DEBUG    Scrapping shipping content
+01-22 17:43 root         DEBUG    Scrapping star of item
+01-22 17:43 root         INFO     Write in each row  4 of amazon search
+01-22 17:43 root         DEBUG    Scrapping item
+01-22 17:43 root         DEBUG    Scrapping title and link
+01-22 17:43 root         DEBUG    Scrapping price, description, and other_price
+01-22 17:43 root         DEBUG    Scrapping star of item
+01-22 17:43 root         INFO     Write in each row  5 of amazon search
+01-22 17:43 root         DEBUG    Scrapping item
+01-22 17:43 root         DEBUG    Scrapping title and link
+01-22 17:43 root         DEBUG    Scrapping price, description, and other_price
+01-22 17:43 root         DEBUG    Scrapping star of item
+01-22 17:43 root         INFO     Write in each row  6 of amazon search
+01-22 17:43 root         DEBUG    Scrapping item
+01-22 17:43 root         DEBUG    Scrapping title and link
+01-22 17:43 root         DEBUG    Scrapping price, description, and other_price
+01-22 17:43 root         DEBUG    Scrapping star of item
+01-22 17:43 root         INFO     Write in each row  7 of amazon search
+01-22 17:43 root         DEBUG    Scrapping item
+01-22 17:43 root         DEBUG    Scrapping title and link
+01-22 17:43 root         DEBUG    Scrapping price, description, and other_price
+01-22 17:43 root         DEBUG    Scrapping shipping content
+01-22 17:43 root         DEBUG    Scrapping star of item
+01-22 17:43 root         INFO     Write in each row  8 of amazon search
+01-22 17:43 root         DEBUG    Scrapping item
+01-22 17:43 root         DEBUG    Scrapping title and link
+01-22 17:43 root         DEBUG    Scrapping price, description, and other_price
+01-22 17:43 root         DEBUG    Scrapping star of item
+01-22 17:43 root         INFO     Write in each row  9 of amazon search
+01-22 17:43 root         DEBUG    Scrapping item
+01-22 17:43 root         DEBUG    Scrapping title and link
+01-22 17:43 root         DEBUG    Scrapping price, description, and other_price
+01-22 17:43 root         INFO     Write in each row  10 of amazon search
+01-22 17:43 root         DEBUG    Scrapping item
+01-22 17:43 root         DEBUG    Scrapping title and link
+01-22 17:43 root         DEBUG    Scrapping price, description, and other_price
+01-22 17:43 root         DEBUG    Scrapping star of item
+01-22 17:43 root         INFO     Write in each row  11 of amazon search
+01-22 17:43 root         DEBUG    Scrapping item
+01-22 17:43 root         DEBUG    Scrapping title and link
+01-22 17:43 root         DEBUG    Scrapping price, description, and other_price
+01-22 17:43 root         INFO     Write in each row  12 of amazon search
+01-22 17:43 root         DEBUG    Scrapping item
+01-22 17:43 root         DEBUG    Scrapping title and link
+01-22 17:43 root         DEBUG    Scrapping price, description, and other_price
+01-22 17:43 root         DEBUG    Scrapping shipping content
+01-22 17:43 root         DEBUG    Scrapping star of item
+01-22 17:43 root         INFO     Write in each row  13 of amazon search
+01-22 17:43 root         DEBUG    Scrapping item
+01-22 17:43 root         DEBUG    Scrapping title and link
+01-22 17:43 root         DEBUG    Scrapping price, description, and other_price
+01-22 17:43 root         DEBUG    Scrapping star of item
+01-22 17:43 root         INFO     Write in each row  14 of amazon search
