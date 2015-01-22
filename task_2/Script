@@ -1,0 +1,18 @@
+# In this task, we are using two site for scarpping: google scholar and amazone with two keys, and store in data.xml ('append # mode')
+# google scholar: stuxnet, crawler the content, title, author 
+# amazone: name, price, price_used, description, shipping, star
+
+# We also did the log file which contains information which can print in the console, error if cannot crawl the website, 
+# debug information
+
+# Script for running this file is:
+
+python task_2.py
+
+
+
+# In task_2, I designed two scrawler using threads in one client: google search and amazon search, and they store in data.xml which shared between threads
+# First step, I create a class client(), function: __init__(self),  googlesearch, amazonsearch, go which are using threads. 
+# Second step, the crawler gets the big node of the webserver
+# Third step, the crawler gets the small node from the big node and store in data.xml ('append mode'). It means that crawler get something, it stores immediately. All data is stored as dictionary type for easy to query
+# The problem with potential synchronization issues are sometimes that only one crawler do the job, because of ...
